@@ -1,3 +1,12 @@
 Smoking.Q1.How Many Times you Smoke Per day?:{<5,5-10,10-20,Chain Smoker}
 Smoking.Q2.How long you have been smoking(Option in Years)?:{<1,1-5,5-10,>10}
 Smoking.Q3.Do you smoke early morning ie., before food?:{No, Yes}
+Drinking.Q1.On Average how many days per week you will drink alcohol?:{0,1-2,3-4,>4}
+Drinking.Q2.On a typical day, how many drinks do you have?{atmost 1,1-2 pegs, 3-5 pegs,>5}
+Drinking.Q3.How long you have the habit of drinking?{<1 year, 2-5 years,<5years}
+Eating Habit.Q1.Do you skip breakfast?{yes, no}
+Eating Habit.Q2.In a week, for how many meals, you include fresh,leafy vegetables and friuts?{>6,3-5,1-2}
+Eating Habit.Q3.How often do you eat junk foods(pizza,burger,etc)?{<2, 3-4, 4-6, >6}
+Physical Activity.Q1.How many hours do you exercise daily? {>45 mins, 30 to 45 mins, 15 to 30 mins, <15 mins}
+Physical Activity.Q2.How many hours in a week you will engage in sports/physical activities?{>6,4-6,2-4,<2}
+Physical Activity.Q3.How many hours you are sleeping daily?{>8,6-7,4-6,<4}
