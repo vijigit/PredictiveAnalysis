@@ -1,4 +1,4 @@
-Smoking.Q1.How Many Times you Smoke Per day?:{<5,5-10,10-20,Chain Smoker}
+Smoking.Q1.How many cigarettes you smoke per day?:{<5,5-10,10-20,Chain Smoker}
 Smoking.Q2.How long you have been smoking(Option in Years)?:{<1,1-5,5-10,>10}
 Smoking.Q3.Do you smoke early morning ie., before food?:{No, Yes}
 Drinking.Q1.On Average how many days per week you will drink alcohol?:{0,1-2,3-4,>4}
