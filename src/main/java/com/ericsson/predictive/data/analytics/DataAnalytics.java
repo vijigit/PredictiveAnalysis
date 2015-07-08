@@ -17,20 +17,19 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.type.TypeReference;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.codehaus.jackson.type.TypeReference;
 
 import com.ericsson.predictive.data.analytics.InputQuestionsAndOptions.UserInput;
 import com.ericsson.predictive.model.HabitsResponse;
 import com.ericsson.predictive.model.HealthResponse;
 import com.ericsson.predictive.model.Smoking;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 
 /**
@@ -51,6 +50,7 @@ public class DataAnalytics {
 			response.setAge(getAsString(jsonObject.get("age")));
 			response.setBmiResult(getBMIResult(jsonObject));
 			response.setHabitsResponse(constructHabitsResponse(jsonObject));
+			System.out.println(getAsJsonResponse(response));
 			System.out.println(response.toString());
 		}catch(Exception e){
 			e.printStackTrace();
@@ -58,6 +58,13 @@ public class DataAnalytics {
 
 	}
 
+	
+	private static String getAsJsonResponse (Object responseObj){
+		Gson gson = new GsonBuilder().create();
+		String s1 = gson.toJson(responseObj);
+		return s1;
+	}
+	
 	/**
 	 * @param object
 	 * @return

@@ -16,6 +16,7 @@ package com.ericsson.predictive.data.analytics;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -32,8 +33,10 @@ import com.ericsson.predictive.model.Smoking;
  */
 public class SmokingResponseCalculator implements Response{
 	private static final String SMOKING_QUESTIONS_REGEX="Smoking.Q\\d\\.(.*\\?):\\{(.*)\\}";
+	private static final String SMOKING_RESPONSE_REGEX="(.*?)=(.*+)";
 	private static List<QuestOptions> questionsOptionsList ;
 	private InputQuestionsAndOptions inputQuestOptions;
+	private static HashMap<String, String> responseMap;
 
 	SmokingResponseCalculator(InputQuestionsAndOptions inputQuestOptions){
 		this.inputQuestOptions = inputQuestOptions;
@@ -53,7 +56,7 @@ public class SmokingResponseCalculator implements Response{
 						List<String> optionsList = questOption.getOptions();
 						for(int i =0; i<optionsList.size(); i++){
 							String option = optionsList.get(i).trim();
-						
+
 							if(inputQuestOption.getOption().equalsIgnoreCase(option)){
 								sevList.add(SeverityCalculatorUtil.calculateSeverity(i));
 							}
@@ -72,10 +75,11 @@ public class SmokingResponseCalculator implements Response{
 	private Smoking formSmokingResponse(SeverityLevel level) {
 		Smoking smoking = new Smoking();
 		smoking.setRiskLevel(level.toString());
-		List<AgeWiseResponse> ageWiseResponse = new ArrayList<AgeWiseResponse>();
-		smoking.setAgeWiseResponse(ageWiseResponse);
+		 List<AgeWiseResponse> ageResponse = SeverityCalculatorUtil.frameReponse(responseMap, inputQuestOptions.getAge() );	
+		 System.out.println("============> "+ageResponse);
+		smoking.setAgeWiseResponse(ageResponse);
 		return smoking;
-		
+
 	}
 
 	/**
@@ -128,6 +132,24 @@ public class SmokingResponseCalculator implements Response{
 					questOptions.setQuestion(m.group(1));
 					questOptions.setOptions(optionsList);
 					questionsOptionsList.add(questOptions);
+				} else {
+					System.out.println("NO MATCH" + line);
+				}
+			}
+			br.close();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		//Load Response
+		try {
+			Pattern response = Pattern.compile(SMOKING_RESPONSE_REGEX);
+			br = new BufferedReader(new InputStreamReader(DataAnalytics.class.getClassLoader().getResourceAsStream(
+					"smokingResponse")));
+			responseMap = new HashMap<String, String>();
+			for(String line; (line = br.readLine()) != null; ) {
+				Matcher m = response.matcher(line);
+				if (m.find()) {
+					responseMap.put(m.group(1), m.group(2));
 				} else {
 					System.out.println("NO MATCH" + line);
 				}

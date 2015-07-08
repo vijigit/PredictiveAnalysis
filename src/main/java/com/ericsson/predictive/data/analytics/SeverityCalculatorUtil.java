@@ -13,7 +13,11 @@
  */
 package com.ericsson.predictive.data.analytics;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+
+import com.ericsson.predictive.model.AgeWiseResponse;
 
 
 /**
@@ -21,6 +25,8 @@ import java.util.List;
  *
  */
 public class SeverityCalculatorUtil {
+	
+	private static final String RESPONSE_TEXT="At the age of {0} you will suffer from {1}";
 
 	/**
 	 * @param index
@@ -71,6 +77,74 @@ public class SeverityCalculatorUtil {
 			}
 		}
 		return level;
+	}
+	/**
+	 * @param severity
+	 * @return
+	 */
+	public static List<AgeWiseResponse>  frameReponse(HashMap<String,String> responseMap, int age){
+		List<AgeWiseResponse> ageWiseResponse = new ArrayList<AgeWiseResponse>();
+		AgeWiseResponse response1 = new AgeWiseResponse();
+		AgeWiseResponse response2 = new AgeWiseResponse();
+		AgeWiseResponse response3 = new AgeWiseResponse();
+		AgeWiseResponse response4 = new AgeWiseResponse();
+	
+		if(age>15 && age<20){
+			response1.setInterval("At the age of 20-25 You will suffer from " + responseMap.get("20-25"));
+			response2.setInterval("At the age of 25-35 You will suffer from " + responseMap.get("25-35"));
+			response3.setInterval("At the age of 35-45 You will suffer from " + responseMap.get("35-45"));
+			response4.setInterval("At the age of 45-50 You will suffer from " + responseMap.get("45-50"));
+			ageWiseResponse.add(response1);
+			ageWiseResponse.add(response2);
+			ageWiseResponse.add(response3);
+			ageWiseResponse.add(response4);
+			
+		}else if(age>20 && age<25){
+			response1.setInterval("At the age of 25-35 You will suffer from " + responseMap.get("25-35"));
+			response2.setInterval("At the age of 35-45 You will suffer from " + responseMap.get("35-45"));
+			response3.setInterval("At the age of 45-50 You will suffer from " + responseMap.get("45-50"));
+			response4.setInterval("At the age of 50-55 You will suffer from " + responseMap.get("50-55"));
+			ageWiseResponse.add(response1);
+			ageWiseResponse.add(response2);
+			ageWiseResponse.add(response3);
+			ageWiseResponse.add(response4);
+			
+		}else if(age>25 && age<35){
+			response1.setInterval("At the age of 35-45 You will suffer from " + responseMap.get("35-45"));
+			response2.setInterval("At the age of 45-50 You will suffer from " + responseMap.get("45-50"));
+			response3.setInterval("At the age of 50-55 You will suffer from " + responseMap.get("50-55"));
+			response4.setInterval("Above 55 You will suffer from " + responseMap.get("Above 55"));
+			ageWiseResponse.add(response1);
+			ageWiseResponse.add(response2);
+			ageWiseResponse.add(response3);
+			ageWiseResponse.add(response4);
+		}else if(age>35 && age<45){
+			response1.setInterval("At the age of 35-45 You will suffer from " + responseMap.get("35-45"));
+			response2.setInterval("At the age of 45-50 You will suffer from " + responseMap.get("45-50"));
+			response3.setInterval("At the age of 50-55 You will suffer from " + responseMap.get("50-55"));
+			response4.setInterval("Above 55 You will suffer from " + responseMap.get("Above 55"));
+			ageWiseResponse.add(response1);
+			ageWiseResponse.add(response2);
+			ageWiseResponse.add(response3);
+			ageWiseResponse.add(response4);
+		}else if(age>45 && age<50){
+			response1.setInterval("At the age of 45-50 You will suffer from " + responseMap.get("45-50"));
+			response2.setInterval("At the age of 50-55 You will suffer from " + responseMap.get("50-55"));
+			response3.setInterval("Above 55 You will suffer from " + responseMap.get("Above 55"));
+			ageWiseResponse.add(response1);
+			ageWiseResponse.add(response2);
+			ageWiseResponse.add(response3);
+		}else if(age>50 && age<55){
+			
+			response1.setInterval("At the age of 50-55 You will suffer from " + responseMap.get("50-55"));
+			response2.setInterval("Above 55 You will suffer from " + responseMap.get("Above 55"));
+			ageWiseResponse.add(response1);
+			ageWiseResponse.add(response2);
+		}else{
+			response1.setInterval("Above 55 You will suffer from " + responseMap.get("Above 55"));
+			ageWiseResponse.add(response1);
+		}
+		return ageWiseResponse;
 	}
 
 }
