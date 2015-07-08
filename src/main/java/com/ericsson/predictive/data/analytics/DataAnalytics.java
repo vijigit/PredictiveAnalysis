@@ -18,6 +18,15 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
+
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.TypeReference;
@@ -38,13 +47,15 @@ import com.google.gson.GsonBuilder;
  */
 public class DataAnalytics {
 
-	public static void main(String[] args) throws IOException {
+	public  String getmyDetails() throws IOException {
+		
+		HealthResponse response = new HealthResponse();
 		try{
 			JSONParser parser = new JSONParser();
 			Object obj = parser.parse(new BufferedReader(new InputStreamReader(DataAnalytics.class.getClassLoader().getResourceAsStream(
 					"input.json"))));
 			JSONObject jsonObject = (JSONObject) obj;
-			HealthResponse response = new HealthResponse();
+			
 			System.out.println(jsonObject);
 			response.setName(getAsString(jsonObject.get("name")));
 			response.setAge(getAsString(jsonObject.get("age")));
@@ -52,13 +63,63 @@ public class DataAnalytics {
 			response.setHabitsResponse(constructHabitsResponse(jsonObject));
 			System.out.println(getAsJsonResponse(response));
 			System.out.println(response.toString());
+			
+			
+			sendEmailNotification("selvakumar.k@ericsson.com","Selva");
+			
 		}catch(Exception e){
 			e.printStackTrace();
 		}
+		return getAsJsonResponse(response);
 
+	}
+	
+	public static void main(String[] args) throws AddressException, MessagingException {
+		
+		sendEmailNotification("selvakumar.k@ericsson.com","Selva");
+		
 	}
 
 	
+	private static void sendEmailNotification(String emailId,String name) throws AddressException, MessagingException {
+		
+		
+		
+		
+		   //Get the session object  
+	     Properties props = new Properties();  
+	     props.put("mail.smtp.host", "smtp.internal.ericsson.com");
+	     props.put("mail.smtp.port", "25");            
+	     Session session = Session.getDefaultInstance(props);  
+	              
+	     //compose message  
+	     
+	      MimeMessage message = new MimeMessage(session);  
+	      message.setFrom(new InternetAddress("noreply@ericsson.com"));//change accordingly  
+	    
+	      
+	     
+	     
+	    	  
+	    	  
+	    	  message.addRecipient(Message.RecipientType.TO,new InternetAddress(emailId)); 
+		
+		
+	    
+		
+	      
+	      
+	    
+	      message.setSubject("Thanks for Using Health Predictive Analysis & Vote for us");  
+	      message.setText("Hi  "+name+"\n"+ "\n"+ "Thanks for using our tool. Vote for us if you like this tool"+"\n"+ "\n");  
+	        
+	      //send message  
+	      Transport.send(message);           
+	      System.out.println("Mail sent Successfully"); 
+		
+	}
+
+
 	private static String getAsJsonResponse (Object responseObj){
 		Gson gson = new GsonBuilder().create();
 		String s1 = gson.toJson(responseObj);
