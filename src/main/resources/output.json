@@ -1,0 +1,23 @@
+{
+  "name": "Ashwin",
+  "age": "28",
+  "bmiResult": "Your Body Mass Index is 25. You are overweight",
+  "habitsResponse": {
+    "Smoking": [
+      {
+        "interval1": "At this {0} "
+      },
+      {
+        "interval2": "At this {0}"
+      }
+    ],
+    "Drinking": [
+      {
+        "interval1": "At this {0} "
+      },
+      {
+        "interval2": "At this {0}"
+      }
+    ]
+  }
+}

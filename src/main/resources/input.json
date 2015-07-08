@@ -1,0 +1,19 @@
+{
+  "name": "Ashwin",
+  "age": "28",
+  "height" : "62",
+  "weight" : "140",
+  "habitsInput": {
+    "Smoking": [
+      {
+        "How Many Times you Smoke Per day?": "5-10"
+      },
+      {
+        "How long you have been smoking(Option in Years)?": "5-10"
+      },
+      {
+        "Do you smoke early morning ie., before food?": "Yes"
+      }
+    ]
+  }
+}
