@@ -76,7 +76,6 @@ public class SmokingResponseCalculator implements Response{
 		Smoking smoking = new Smoking();
 		smoking.setRiskLevel(level.toString());
 		 List<AgeWiseResponse> ageResponse = SeverityCalculatorUtil.frameReponse(responseMap, inputQuestOptions.getAge(), level);	
-		 System.out.println("============> "+ageResponse);
 		smoking.setAgeWiseResponse(ageResponse);
 		return smoking;
 
@@ -132,8 +131,6 @@ public class SmokingResponseCalculator implements Response{
 					questOptions.setQuestion(m.group(1));
 					questOptions.setOptions(optionsList);
 					questionsOptionsList.add(questOptions);
-				} else {
-					System.out.println("NO MATCH" + line);
 				}
 			}
 			br.close();

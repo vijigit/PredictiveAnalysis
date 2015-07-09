@@ -25,7 +25,6 @@ import java.util.regex.Pattern;
 import com.ericsson.predictive.data.analytics.InputQuestionsAndOptions.UserInput;
 import com.ericsson.predictive.model.AgeWiseResponse;
 import com.ericsson.predictive.model.Drinking;
-import com.ericsson.predictive.model.Smoking;
 
 
 /**
@@ -77,7 +76,6 @@ public class DrinkingResponseCalculator implements Response{
 		Drinking drinking = new Drinking();
 		drinking.setRiskLevel(level.toString());
 		 List<AgeWiseResponse> ageResponse = SeverityCalculatorUtil.frameReponse(responseMap, inputQuestOptions.getAge(),level );	
-		 System.out.println("============> "+ageResponse);
 		drinking.setAgeWiseResponse(ageResponse);
 		return drinking;
 
@@ -133,9 +131,7 @@ public class DrinkingResponseCalculator implements Response{
 					questOptions.setQuestion(m.group(1));
 					questOptions.setOptions(optionsList);
 					questionsOptionsList.add(questOptions);
-				} else {
-					System.out.println("NO MATCH" + line);
-				}
+				} 
 			}
 			br.close();
 		}catch(Exception e){
@@ -145,7 +141,7 @@ public class DrinkingResponseCalculator implements Response{
 		try {
 			Pattern response = Pattern.compile(DRINKING_RESPONSE_REGEX);
 			br = new BufferedReader(new InputStreamReader(DataAnalytics.class.getClassLoader().getResourceAsStream(
-					"smokingResponse")));
+					"drinkingResponse")));
 			responseMap = new HashMap<String, String>();
 			for(String line; (line = br.readLine()) != null; ) {
 				Matcher m = response.matcher(line);

@@ -76,7 +76,6 @@ public class PhysicalActivityResponseCalculator implements Response{
 		PhysicalActivity physicalActivity = new PhysicalActivity();
 		physicalActivity.setRiskLevel(level.toString());
 		List<AgeWiseResponse> ageResponse = SeverityCalculatorUtil.frameReponse(responseMap, inputQuestOptions.getAge(),level );	
-		System.out.println("============> "+ageResponse);
 		physicalActivity.setAgeWiseResponse(ageResponse);
 		return physicalActivity;
 
@@ -142,7 +141,7 @@ public class PhysicalActivityResponseCalculator implements Response{
 		try {
 			Pattern response = Pattern.compile(RESPONSE_REGEX);
 			br = new BufferedReader(new InputStreamReader(DataAnalytics.class.getClassLoader().getResourceAsStream(
-					"smokingResponse")));
+					"physicalActivityResponse")));
 			responseMap = new HashMap<String, String>();
 			for(String line; (line = br.readLine()) != null; ) {
 				Matcher m = response.matcher(line);

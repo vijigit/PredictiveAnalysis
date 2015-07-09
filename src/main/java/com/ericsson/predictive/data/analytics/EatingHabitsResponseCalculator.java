@@ -77,7 +77,6 @@ public class EatingHabitsResponseCalculator implements Response{
 		EatingHabits eatingHabits = new EatingHabits();
 		eatingHabits.setRiskLevel(level.toString());
 		List<AgeWiseResponse> ageResponse = SeverityCalculatorUtil.frameReponse(responseMap, inputQuestOptions.getAge(), level);	
-		System.out.println("============> "+ageResponse);
 		eatingHabits.setAgeWiseResponse(ageResponse);
 		return eatingHabits;
 
@@ -143,7 +142,7 @@ public class EatingHabitsResponseCalculator implements Response{
 		try {
 			Pattern response = Pattern.compile(RESPONSE_REGEX);
 			br = new BufferedReader(new InputStreamReader(DataAnalytics.class.getClassLoader().getResourceAsStream(
-					"smokingResponse")));
+					"eatingResponse")));
 			responseMap = new HashMap<String, String>();
 			for(String line; (line = br.readLine()) != null; ) {
 				Matcher m = response.matcher(line);
