@@ -24,21 +24,21 @@ import java.util.regex.Pattern;
 
 import com.ericsson.predictive.data.analytics.InputQuestionsAndOptions.UserInput;
 import com.ericsson.predictive.model.AgeWiseResponse;
-import com.ericsson.predictive.model.Smoking;
+import com.ericsson.predictive.model.PhysicalActivity;
 
 
 /**
  * @author evijaka
  *
  */
-public class SmokingResponseCalculator implements Response{
-	private static final String SMOKING_QUESTIONS_REGEX="Smoking.Q\\d\\.(.*\\?):\\{(.*)\\}";
-	private static final String SMOKING_RESPONSE_REGEX="(.*?)=(.*+)";
+public class PhysicalActivityResponseCalculator implements Response{
+	private static final String PHYSICAL_ACTIVITY_QUESTIONS_REGEX="Physical Activity.Q\\d\\.(.*\\?):\\{(.*)\\}";
+	private static final String RESPONSE_REGEX="(.*?)=(.*+)";
 	private static List<QuestOptions> questionsOptionsList ;
 	private InputQuestionsAndOptions inputQuestOptions;
 	private static HashMap<String, String> responseMap;
 
-	SmokingResponseCalculator(InputQuestionsAndOptions inputQuestOptions){
+	PhysicalActivityResponseCalculator(InputQuestionsAndOptions inputQuestOptions){
 		this.inputQuestOptions = inputQuestOptions;
 	}
 
@@ -66,19 +66,19 @@ public class SmokingResponseCalculator implements Response{
 			}
 		}
 		SeverityLevel level = SeverityCalculatorUtil.getSeverity(sevList);
-		return formSmokingResponse(level);
+		return formEatingHabitsResponse(level);
 	}
 
 	/**
 	 * @param level
 	 */
-	private Smoking formSmokingResponse(SeverityLevel level) {
-		Smoking smoking = new Smoking();
-		smoking.setRiskLevel(level.toString());
-		 List<AgeWiseResponse> ageResponse = SeverityCalculatorUtil.frameReponse(responseMap, inputQuestOptions.getAge(), level);	
-		 System.out.println("============> "+ageResponse);
-		smoking.setAgeWiseResponse(ageResponse);
-		return smoking;
+	private PhysicalActivity formEatingHabitsResponse(SeverityLevel level) {
+		PhysicalActivity physicalActivity = new PhysicalActivity();
+		physicalActivity.setRiskLevel(level.toString());
+		List<AgeWiseResponse> ageResponse = SeverityCalculatorUtil.frameReponse(responseMap, inputQuestOptions.getAge(),level );	
+		System.out.println("============> "+ageResponse);
+		physicalActivity.setAgeWiseResponse(ageResponse);
+		return physicalActivity;
 
 	}
 
@@ -109,13 +109,13 @@ public class SmokingResponseCalculator implements Response{
 	 */
 	public static void setQuestionsOptionsList(
 			List<QuestOptions> questionsOptionsList) {
-		SmokingResponseCalculator.questionsOptionsList = questionsOptionsList;
+		PhysicalActivityResponseCalculator.questionsOptionsList = questionsOptionsList;
 	}
 
 	static {
 		questionsOptionsList = new ArrayList<QuestOptions>();
 		BufferedReader br  = null;
-		Pattern r = Pattern.compile(SMOKING_QUESTIONS_REGEX);
+		Pattern r = Pattern.compile(PHYSICAL_ACTIVITY_QUESTIONS_REGEX);
 		String fileName = "Questions";
 		try {
 			br = new BufferedReader(new InputStreamReader(DataAnalytics.class.getClassLoader().getResourceAsStream(
@@ -132,9 +132,7 @@ public class SmokingResponseCalculator implements Response{
 					questOptions.setQuestion(m.group(1));
 					questOptions.setOptions(optionsList);
 					questionsOptionsList.add(questOptions);
-				} else {
-					System.out.println("NO MATCH" + line);
-				}
+				} 
 			}
 			br.close();
 		}catch(Exception e){
@@ -142,7 +140,7 @@ public class SmokingResponseCalculator implements Response{
 		}
 		//Load Response
 		try {
-			Pattern response = Pattern.compile(SMOKING_RESPONSE_REGEX);
+			Pattern response = Pattern.compile(RESPONSE_REGEX);
 			br = new BufferedReader(new InputStreamReader(DataAnalytics.class.getClassLoader().getResourceAsStream(
 					"smokingResponse")));
 			responseMap = new HashMap<String, String>();
@@ -150,7 +148,7 @@ public class SmokingResponseCalculator implements Response{
 				Matcher m = response.matcher(line);
 				if (m.find()) {
 					responseMap.put(m.group(1), m.group(2));
-				}
+				} 
 			}
 			br.close();
 		}catch(Exception e){

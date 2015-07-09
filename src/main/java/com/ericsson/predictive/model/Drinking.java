@@ -13,6 +13,8 @@
  */
 package com.ericsson.predictive.model;
 
+import java.util.List;
+
 
 /**
  * @author evijaka
@@ -23,8 +25,8 @@ public class Drinking
 {
 	private String riskLevel;
 
-	private AgeWiseResponse[] AgeWiseResponse;
-
+	  private List<AgeWiseResponse> AgeWiseResponse;
+	  
 	public String getRiskLevel ()
 	{
 		return riskLevel;
@@ -35,14 +37,18 @@ public class Drinking
 		this.riskLevel = riskLevel;
 	}
 
-	public AgeWiseResponse[] getAgeWiseResponse ()
-	{
+	/**
+	 * @return the ageWiseResponse
+	 */
+	public List<AgeWiseResponse> getAgeWiseResponse() {
 		return AgeWiseResponse;
 	}
 
-	public void setAgeWiseResponse (AgeWiseResponse[] AgeWiseResponse)
-	{
-		this.AgeWiseResponse = AgeWiseResponse;
+	/**
+	 * @param ageWiseResponse the ageWiseResponse to set
+	 */
+	public void setAgeWiseResponse(List<AgeWiseResponse> ageWiseResponse) {
+		AgeWiseResponse = ageWiseResponse;
 	}
 
 	@Override

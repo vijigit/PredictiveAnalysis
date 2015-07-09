@@ -24,6 +24,7 @@ import java.util.regex.Pattern;
 
 import com.ericsson.predictive.data.analytics.InputQuestionsAndOptions.UserInput;
 import com.ericsson.predictive.model.AgeWiseResponse;
+import com.ericsson.predictive.model.Drinking;
 import com.ericsson.predictive.model.Smoking;
 
 
@@ -31,14 +32,14 @@ import com.ericsson.predictive.model.Smoking;
  * @author evijaka
  *
  */
-public class SmokingResponseCalculator implements Response{
-	private static final String SMOKING_QUESTIONS_REGEX="Smoking.Q\\d\\.(.*\\?):\\{(.*)\\}";
-	private static final String SMOKING_RESPONSE_REGEX="(.*?)=(.*+)";
+public class DrinkingResponseCalculator implements Response{
+	private static final String DRINKING_QUESTIONS_REGEX="Drinking.Q\\d\\.(.*\\?):\\{(.*)\\}";
+	private static final String DRINKING_RESPONSE_REGEX="(.*?)=(.*+)";
 	private static List<QuestOptions> questionsOptionsList ;
 	private InputQuestionsAndOptions inputQuestOptions;
 	private static HashMap<String, String> responseMap;
 
-	SmokingResponseCalculator(InputQuestionsAndOptions inputQuestOptions){
+	DrinkingResponseCalculator(InputQuestionsAndOptions inputQuestOptions){
 		this.inputQuestOptions = inputQuestOptions;
 	}
 
@@ -66,19 +67,19 @@ public class SmokingResponseCalculator implements Response{
 			}
 		}
 		SeverityLevel level = SeverityCalculatorUtil.getSeverity(sevList);
-		return formSmokingResponse(level);
+		return formDrinkingResponse(level);
 	}
 
 	/**
 	 * @param level
 	 */
-	private Smoking formSmokingResponse(SeverityLevel level) {
-		Smoking smoking = new Smoking();
-		smoking.setRiskLevel(level.toString());
-		 List<AgeWiseResponse> ageResponse = SeverityCalculatorUtil.frameReponse(responseMap, inputQuestOptions.getAge(), level);	
+	private Drinking formDrinkingResponse(SeverityLevel level) {
+		Drinking drinking = new Drinking();
+		drinking.setRiskLevel(level.toString());
+		 List<AgeWiseResponse> ageResponse = SeverityCalculatorUtil.frameReponse(responseMap, inputQuestOptions.getAge(),level );	
 		 System.out.println("============> "+ageResponse);
-		smoking.setAgeWiseResponse(ageResponse);
-		return smoking;
+		drinking.setAgeWiseResponse(ageResponse);
+		return drinking;
 
 	}
 
@@ -109,13 +110,13 @@ public class SmokingResponseCalculator implements Response{
 	 */
 	public static void setQuestionsOptionsList(
 			List<QuestOptions> questionsOptionsList) {
-		SmokingResponseCalculator.questionsOptionsList = questionsOptionsList;
+		DrinkingResponseCalculator.questionsOptionsList = questionsOptionsList;
 	}
 
 	static {
 		questionsOptionsList = new ArrayList<QuestOptions>();
 		BufferedReader br  = null;
-		Pattern r = Pattern.compile(SMOKING_QUESTIONS_REGEX);
+		Pattern r = Pattern.compile(DRINKING_QUESTIONS_REGEX);
 		String fileName = "Questions";
 		try {
 			br = new BufferedReader(new InputStreamReader(DataAnalytics.class.getClassLoader().getResourceAsStream(
@@ -142,7 +143,7 @@ public class SmokingResponseCalculator implements Response{
 		}
 		//Load Response
 		try {
-			Pattern response = Pattern.compile(SMOKING_RESPONSE_REGEX);
+			Pattern response = Pattern.compile(DRINKING_RESPONSE_REGEX);
 			br = new BufferedReader(new InputStreamReader(DataAnalytics.class.getClassLoader().getResourceAsStream(
 					"smokingResponse")));
 			responseMap = new HashMap<String, String>();
@@ -150,7 +151,7 @@ public class SmokingResponseCalculator implements Response{
 				Matcher m = response.matcher(line);
 				if (m.find()) {
 					responseMap.put(m.group(1), m.group(2));
-				}
+				} 
 			}
 			br.close();
 		}catch(Exception e){

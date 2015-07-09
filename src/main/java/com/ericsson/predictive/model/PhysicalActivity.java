@@ -13,6 +13,8 @@
  */
 package com.ericsson.predictive.model;
 
+import java.util.List;
+
 
 /**
  * @author evijaka
@@ -21,22 +23,41 @@ package com.ericsson.predictive.model;
 
 public class PhysicalActivity
 {
-	private String interval1;
+	private String riskLevel;
 
-	public String getInterval1 ()
-	{
-		return interval1;
+    private List<AgeWiseResponse> AgeWiseResponse;
+
+    public String getRiskLevel ()
+    {
+        return riskLevel;
+    }
+
+    public void setRiskLevel (String riskLevel)
+    {
+        this.riskLevel = riskLevel;
+    }
+
+    
+
+    /**
+	 * @return the ageWiseResponse
+	 */
+	public List<AgeWiseResponse> getAgeWiseResponse() {
+		return AgeWiseResponse;
 	}
 
-	public void setInterval1 (String interval1)
-	{
-		this.interval1 = interval1;
+	/**
+	 * @param ageWiseResponse the ageWiseResponse to set
+	 */
+	public void setAgeWiseResponse(List<AgeWiseResponse> ageWiseResponse) {
+		AgeWiseResponse = ageWiseResponse;
 	}
 
 	@Override
-	public String toString()
-	{
-		return "ClassPojo [interval1 = "+interval1+"]";
-	}
+    public String toString()
+    {
+        return "ClassPojo [riskLevel = "+riskLevel+", AgeWiseResponse = "+AgeWiseResponse+"]";
+    }
+	
 }
 

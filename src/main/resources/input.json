@@ -14,6 +14,39 @@
       {
         "Do you smoke early morning ie., before food?": "Yes"
       }
+    ],
+     "Drinking": [
+      {
+        "On Average how many days per week you will Consume alcohol?": "1-2"
+      },
+      {
+        "On a typical day, how many drinks do you have?": "atmost 1"
+      },
+      {
+        "How long you have the habit of drinking?": "<1 year"
+      }
+    ],
+     "Eating Habit": [
+      {
+        "Do you skip breakfast?": "no"
+      },
+      {
+        "In a week, for how many meals, you include fresh,leafy vegetables and friuts?": ">6"
+      },
+      {
+        "How often do you eat junk foods(pizza,burger,etc)?": "<2"
+      }
+    ],
+     "Physical Activity": [
+      {
+        "How many hours do you exercise daily?": ">45 mins"
+      },
+      {
+        "How many hours in a week you will engage in sports/physical activities?": ">6"
+      },
+      {
+        "How many hours you are sleeping daily?": ">8"
+      }
     ]
   }
 }

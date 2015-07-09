@@ -13,6 +13,8 @@
  */
 package com.ericsson.predictive.model;
 
+import com.google.gson.annotations.SerializedName;
+
 
 
 /**
@@ -24,6 +26,41 @@ public class HabitsResponse
 	private Drinking Drinking;
 
 	private Smoking Smoking;
+
+	@SerializedName("Eating Habit")
+	private EatingHabits eatingHabits;
+	
+	@SerializedName("Physical Activity")
+	private PhysicalActivity physicalActivity;
+	
+	
+	/**
+	 * @return the eatingHabits
+	 */
+	public EatingHabits getEatingHabits() {
+		return eatingHabits;
+	}
+
+	/**
+	 * @param eatingHabits the eatingHabits to set
+	 */
+	public void setEatingHabits(EatingHabits eatingHabits) {
+		this.eatingHabits = eatingHabits;
+	}
+
+	/**
+	 * @return the physicalActivity
+	 */
+	public PhysicalActivity getPhysicalActivity() {
+		return physicalActivity;
+	}
+
+	/**
+	 * @param physicalActivity the physicalActivity to set
+	 */
+	public void setPhysicalActivity(PhysicalActivity physicalActivity) {
+		this.physicalActivity = physicalActivity;
+	}
 
 	public Drinking getDrinking ()
 	{

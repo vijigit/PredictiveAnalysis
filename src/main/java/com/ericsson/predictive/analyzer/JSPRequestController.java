@@ -39,7 +39,7 @@ public class JSPRequestController {
 		
 		
 	try {
-		return	da.getmyDetails();
+		return	da.getmyDetails(json);
 	} catch (IOException e) {
 		return "failed";
 	}
