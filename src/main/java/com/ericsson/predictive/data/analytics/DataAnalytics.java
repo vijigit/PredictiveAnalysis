@@ -61,7 +61,7 @@ public class DataAnalytics {
 			response.setAge(getAsString(jsonObject.get("age")));
 			response.setBmiResult(getBMIResult(jsonObject));
 			response.setHabitsResponse(constructHabitsResponse(jsonObject));
-			//sendEmailNotification("selvakumar.k@ericsson.com","Selva");
+			sendEmailNotification("selvakumar.k@ericsson.com","Selva");
 
 		}catch(Exception e){
 			e.printStackTrace();
